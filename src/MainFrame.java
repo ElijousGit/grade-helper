@@ -79,10 +79,10 @@ public class MainFrame extends JFrame {
                     cont = false;
                 }
 
+                fScore = 0f;
                 if (cont) {
                     finalGrade.setText((GetFinalScore(aggreScore)));
                     lbLetterGrade.setText(GetLetterGrade(fScore));
-                    fScore = 0f;
                 }
 
             }
@@ -117,13 +117,16 @@ public class MainFrame extends JFrame {
 
         for (int i = 0; targetScore > score; i++) {
             targetScore -= .025f;
-            letterGrade = gradeLetters[i];
-        }
 
-        // this if statement checks if the score is over 100%, and assigns the highest
-        // possible grade
-        if (score >= 1f) {
-            letterGrade = gradeLetters[0];
+            // This will check if the number is too little or too high to be assigned
+            if (i >= gradeLetters.length) {
+                letterGrade = gradeLetters[gradeLetters.length - 1];
+            } else if (score >= 1f) {
+                letterGrade = gradeLetters[0];
+            } else {
+                letterGrade = gradeLetters[i];
+            }
+
         }
 
         return letterGrade;
@@ -147,6 +150,7 @@ public class MainFrame extends JFrame {
     public String GetFinalScore(ArrayList<Float> input) {
         for (int i = 0; i < input.size(); i++) {
             fScore += input.get(i);
+            System.out.println(fScore);
         }
         return String.valueOf(fScore);
     }
