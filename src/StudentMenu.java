@@ -1,11 +1,40 @@
-import java.awt.Color;
 
+import java.awt.Color;
+import java.awt.Font;
+
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.border.Border;
 
 public class StudentMenu {
+    static String imageLibrary = "C:\\Users\\elimu\\Documents\\Github\\grade-helper\\src\\Images\\";
+
+    static Font mainFont = new Font("Times New Roman", Font.ITALIC, 30);
+    static Border border = BorderFactory.createLineBorder(Color.BLACK, 5);
+
     public static void main(String[] args) {
-        new Frame(new Color(211, 203, 199, 255));
+
+        ImageIcon imageIcon = new ImageIcon(imageLibrary + "grade-helper-clipart.png");
+        ImageIcon imageLogo = new ImageIcon(imageLibrary + "grade-helper-logo.png");
+
+        JFrame frame = new Frame(CustomColors.tan, 575, 700);
+
+        JLabel welcome = new JLabel("Welcome to grade helper");
+        welcome.setIcon(imageLogo);
+        welcome.setHorizontalTextPosition(JLabel.CENTER);
+        welcome.setVerticalTextPosition(JLabel.TOP);
+        welcome.setForeground(Color.BLACK);
+        welcome.setFont(mainFont);
+        welcome.setIconTextGap(50);
+        welcome.setBorder(border);
+        welcome.setVerticalAlignment(JLabel.CENTER);
+        welcome.setHorizontalAlignment(JLabel.CENTER);
+
+        frame.setIconImage(imageIcon.getImage());
+        frame.add(welcome);
+        frame.pack(); // based on the size of the components, this will
     }
 }
 // public void initialize() {
