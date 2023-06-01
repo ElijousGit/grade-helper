@@ -1,11 +1,22 @@
 
+import java.awt.Button;
+import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 public class StudentMenu {
@@ -16,10 +27,28 @@ public class StudentMenu {
 
     public static void main(String[] args) {
 
-        ImageIcon imageIcon = new ImageIcon(imageLibrary + "grade-helper-clipart.png");
-        ImageIcon imageLogo = new ImageIcon(imageLibrary + "grade-helper-logo.png");
+        // ALL of this $#!@ just to resize an image. It looks disgusting.
+        BufferedImage bufferedImage = null;
+        try {
+            bufferedImage = ImageIO
+                    .read(new File("C:\\Users\\elimu\\Documents\\Github\\grade-helper\\src\\Images\\report card.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Image resizedGradeManIcon = bufferedImage.getScaledInstance(100, 75, Image.SCALE_DEFAULT);
 
-        JFrame frame = new Frame(CustomColors.tan, 575, 700);
+        // Image definitions
+        ImageIcon manageGradeIcon = new ImageIcon(resizedGradeManIcon);
+        ImageIcon imageIcon = new ImageIcon(getCustomImage("grade-helper-clipart.png"));
+        ImageIcon imageLogo = new ImageIcon(getCustomImage("grade-helper-logo.png"));
+
+        JFrame frame = new Frame(CustomColors.tan, 1400, 1000);
+        frame.setLayout(null);
+
+        JPanel whitePanel = new JPanel();
+        whitePanel.setBackground(Color.WHITE);
+        whitePanel.setBounds(10, 25, 375, 460);
+        whitePanel.setBorder(border);
 
         JLabel welcome = new JLabel("Welcome to grade helper");
         welcome.setIcon(imageLogo);
@@ -28,13 +57,33 @@ public class StudentMenu {
         welcome.setForeground(Color.BLACK);
         welcome.setFont(mainFont);
         welcome.setIconTextGap(50);
-        welcome.setBorder(border);
         welcome.setVerticalAlignment(JLabel.CENTER);
         welcome.setHorizontalAlignment(JLabel.CENTER);
 
+        JButton button = new JButton();
+        button.setBounds(500, 100, 400, 100);
+        button.setText("Manage Grades");
+        button.setFont(mainFont);
+        button.setFocusable(false);
+        button.setIcon(manageGradeIcon);
+        button.setHorizontalTextPosition(JButton.LEFT);
+        button.setVerticalTextPosition(JButton.CENTER);
+        button.setBackground(Color.LIGHT_GRAY);
+        button.setBorder(BorderFactory.createBevelBorder(0));
+
+        button.addActionListener(e -> System.out.println("haha"));
+
+        // Add everything to frame
         frame.setIconImage(imageIcon.getImage());
-        frame.add(welcome);
-        frame.pack(); // based on the size of the components, this will
+        whitePanel.add(welcome);
+        frame.add(whitePanel);
+        frame.add(button);
+        // frame.pack(); // based on the size of the components, this will adjust the
+        // size accordingly
+    }
+
+    public static String getCustomImage(String imageName) {
+        return imageLibrary + imageName;
     }
 }
 // public void initialize() {
