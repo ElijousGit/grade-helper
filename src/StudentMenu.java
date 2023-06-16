@@ -1,7 +1,9 @@
 
+import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -29,55 +31,74 @@ public class StudentMenu {
 
         // ALL of this $#!@ just to resize an image. It looks disgusting.
         BufferedImage bufferedImage = null;
+        BufferedImage bufferedImage2 = null;
         try {
             bufferedImage = ImageIO
                     .read(new File("C:\\Users\\elimu\\Documents\\Github\\grade-helper\\src\\Images\\report card.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
+        try {
+            bufferedImage2 = ImageIO
+                    .read(new File(
+                            "C:\\Users\\elimu\\Documents\\Github\\grade-helper\\src\\Images\\grade-helper-logo.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Image resizedGradeManIcon = bufferedImage.getScaledInstance(100, 75, Image.SCALE_DEFAULT);
+        Image resizedLogoIcon = bufferedImage2.getScaledInstance(250, 210, Image.SCALE_DEFAULT);
 
         // Image definitions
         ImageIcon manageGradeIcon = new ImageIcon(resizedGradeManIcon);
         ImageIcon imageIcon = new ImageIcon(getCustomImage("grade-helper-clipart.png"));
-        ImageIcon imageLogo = new ImageIcon(getCustomImage("grade-helper-logo.png"));
+        ImageIcon imageLogo = new ImageIcon(resizedLogoIcon /* getCustomImage("grade-helper-logo.png") */);
 
         JFrame frame = new Frame(CustomColors.tan, 1400, 1000);
-        frame.setLayout(null);
+        frame.setLayout(new BorderLayout(10, 10));
 
         JPanel whitePanel = new JPanel();
+        whitePanel.setPreferredSize(new Dimension(100, 250));
         whitePanel.setBackground(Color.WHITE);
-        whitePanel.setBounds(10, 25, 375, 460);
         whitePanel.setBorder(border);
+
+        JPanel buttons = new JPanel();
+        buttons.setBackground(null);
 
         JLabel welcome = new JLabel("Welcome to grade helper");
         welcome.setIcon(imageLogo);
-        welcome.setHorizontalTextPosition(JLabel.CENTER);
-        welcome.setVerticalTextPosition(JLabel.TOP);
+        welcome.setHorizontalTextPosition(JLabel.LEFT);
+        welcome.setVerticalTextPosition(JLabel.CENTER);
         welcome.setForeground(Color.BLACK);
         welcome.setFont(mainFont);
         welcome.setIconTextGap(50);
         welcome.setVerticalAlignment(JLabel.CENTER);
-        welcome.setHorizontalAlignment(JLabel.CENTER);
+        welcome.setHorizontalAlignment(JLabel.RIGHT);
+
+        // Add text to the white panel
+        whitePanel.add(welcome);
 
         JButton button = new JButton();
-        button.setBounds(500, 100, 400, 100);
+        // button.setBounds(500, 100, 400, 100);
         button.setText("Manage Grades");
         button.setFont(mainFont);
         button.setFocusable(false);
         button.setIcon(manageGradeIcon);
         button.setHorizontalTextPosition(JButton.LEFT);
         button.setVerticalTextPosition(JButton.CENTER);
+        button.setVerticalAlignment(JButton.TOP);
+        button.setHorizontalAlignment(JButton.RIGHT);
         button.setBackground(Color.LIGHT_GRAY);
         button.setBorder(BorderFactory.createBevelBorder(0));
 
         button.addActionListener(e -> System.out.println("haha"));
 
+        buttons.add(button);
+
         // Add everything to frame
         frame.setIconImage(imageIcon.getImage());
-        whitePanel.add(welcome);
-        frame.add(whitePanel);
-        frame.add(button);
+        frame.add(whitePanel, BorderLayout.NORTH);
+        frame.add(buttons, BorderLayout.EAST);
+        // frame.add(buttons, BorderLayout.CENTER);
         // frame.pack(); // based on the size of the components, this will adjust the
         // size accordingly
     }
