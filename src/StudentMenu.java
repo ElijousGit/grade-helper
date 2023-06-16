@@ -24,7 +24,9 @@ import javax.swing.border.Border;
 public class StudentMenu {
     static String imageLibrary = "C:\\Users\\elimu\\Documents\\Github\\grade-helper\\src\\Images\\";
 
-    static Font mainFont = new Font("Times New Roman", Font.ITALIC, 30);
+    static Font mainFont = new Font("Times New Roman", Font.PLAIN, 30);
+    static Font titleFont = new Font("Times New Roman", Font.ITALIC, 65);
+
     static Border border = BorderFactory.createLineBorder(Color.BLACK, 5);
 
     public static void main(String[] args) {
@@ -46,7 +48,7 @@ public class StudentMenu {
             e.printStackTrace();
         }
         Image resizedGradeManIcon = bufferedImage.getScaledInstance(100, 75, Image.SCALE_DEFAULT);
-        Image resizedLogoIcon = bufferedImage2.getScaledInstance(250, 210, Image.SCALE_DEFAULT);
+        Image resizedLogoIcon = bufferedImage2.getScaledInstance(230, 210, Image.SCALE_DEFAULT);
 
         // Image definitions
         ImageIcon manageGradeIcon = new ImageIcon(resizedGradeManIcon);
@@ -69,7 +71,7 @@ public class StudentMenu {
         welcome.setHorizontalTextPosition(JLabel.LEFT);
         welcome.setVerticalTextPosition(JLabel.CENTER);
         welcome.setForeground(Color.BLACK);
-        welcome.setFont(mainFont);
+        welcome.setFont(titleFont);
         welcome.setIconTextGap(50);
         welcome.setVerticalAlignment(JLabel.CENTER);
         welcome.setHorizontalAlignment(JLabel.RIGHT);
